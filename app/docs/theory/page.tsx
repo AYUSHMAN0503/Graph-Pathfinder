@@ -48,7 +48,7 @@ export default function TheoryPage() {
       <h2>4. Visualization Logic</h2>
       <ul>
         <li><strong>Blue Nodes:</strong> These are nodes the algorithm checked/visited.</li>
-        <li><strong>Yellow Path:</strong> Once the target is found, we trace backwards using the <code>previousNode</code> property stored on every node. We go from End -> Parent -> Parent -> Start.</li>
+        <li><strong>Yellow Path:</strong> Once the target is found, we trace backwards using the <code>previousNode</code> property stored on every node. We go from End -- Parent -- Parent -- Start.</li>
       </ul>
     </div>
   );
