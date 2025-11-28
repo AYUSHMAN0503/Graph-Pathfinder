@@ -246,7 +246,7 @@ export default function PathfindingVisualizer() {
 
   return (
     <div className="min-h-screen flex flex-col items-center p-4">
-      <h1 className="text-3xl font-bold mb-4">Pathfinding Visualizer</h1>
+      <h1 className="text-3xl font-bold mb-4">Graph Pathfinder</h1>
 
       <Controls 
         visualizeDijkstra={runDijkstra}
