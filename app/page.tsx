@@ -7,6 +7,8 @@ import { NodeData } from "@/lib/types";
 import { createGrid, sleep } from "@/lib/utils";
 import { dijkstra, getNodesInShortestPathOrder } from "@/lib/algorithms/dijkstra";
 import { aStar } from "@/lib/algorithms/astar";
+import { bfs } from "@/lib/algorithms/bfs";
+import { dfs } from "@/lib/algorithms/dfs";
 
 export default function PathfindingVisualizer() {
   const [grid, setGrid] = useState<NodeData[][]>([]);
@@ -105,14 +107,14 @@ export default function PathfindingVisualizer() {
     setIsVisualizing(false);
   };
 
+  // --- Algorithm Handlers ---
+
   const runDijkstra = () => {
     if (isVisualizing) return;
     const { startNode, endNode } = getStartEndNodes();
     if (!startNode || !endNode) return;
 
-    // Reset visuals first
     clearPath();
-
     const visitedNodes = dijkstra(grid, startNode, endNode);
     const shortestPath = getNodesInShortestPathOrder(endNode);
     animateAlgorithm(visitedNodes, shortestPath);
@@ -124,8 +126,29 @@ export default function PathfindingVisualizer() {
     if (!startNode || !endNode) return;
 
     clearPath();
-
     const visitedNodes = aStar(grid, startNode, endNode);
+    const shortestPath = getNodesInShortestPathOrder(endNode);
+    animateAlgorithm(visitedNodes, shortestPath);
+  };
+
+  const runBFS = () => {
+    if (isVisualizing) return;
+    const { startNode, endNode } = getStartEndNodes();
+    if (!startNode || !endNode) return;
+
+    clearPath();
+    const visitedNodes = bfs(grid, startNode, endNode);
+    const shortestPath = getNodesInShortestPathOrder(endNode);
+    animateAlgorithm(visitedNodes, shortestPath);
+  };
+
+  const runDFS = () => {
+    if (isVisualizing) return;
+    const { startNode, endNode } = getStartEndNodes();
+    if (!startNode || !endNode) return;
+
+    clearPath();
+    const visitedNodes = dfs(grid, startNode, endNode);
     const shortestPath = getNodesInShortestPathOrder(endNode);
     animateAlgorithm(visitedNodes, shortestPath);
   };
@@ -189,7 +212,6 @@ export default function PathfindingVisualizer() {
         const newGrid = createGrid(20, 40);
 
         // 2. CRITICAL FIX: Wipe the default start/end nodes
-        // This ensures no ghost nodes remain if the JSON is smaller than the grid
         newGrid.forEach(row => row.forEach(node => {
           node.isStart = false;
           node.isEnd = false;
@@ -224,11 +246,13 @@ export default function PathfindingVisualizer() {
 
   return (
     <div className="min-h-screen flex flex-col items-center p-4">
-      <h1 className="text-3xl font-bold mb-4">Graph-Pathfinder</h1>
+      <h1 className="text-3xl font-bold mb-4">Pathfinding Visualizer</h1>
 
       <Controls 
         visualizeDijkstra={runDijkstra}
         visualizeAStar={runAStar}
+        visualizeBFS={runBFS}
+        visualizeDFS={runDFS}
         clearGrid={clearGrid}
         clearPath={clearPath}
         exportGrid={exportGrid}
