@@ -19,9 +19,3 @@ A beginner-friendly visualization of Dijkstra and A* pathfinding algorithms buil
 - **Shift + Click:** Set Start Node (Green)
 - **Alt + Click:** Set Target Node (Red)
 - **Ctrl/Meta + Click:** Add Weight (Orange) - *Weights cost 5x more to traverse.*
-
-## Tech Stack
-- **Next.js (App Router)**
-- **TypeScript** (Simple, no complex generics)
-- **Tailwind CSS** (Styling)
-# Graph-Pathfinder
